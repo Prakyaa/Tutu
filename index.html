@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — My Target</title>
+
+  <!-- Simple modern styles (feel free to tweak colors & fonts) -->
+  <style>
+    :root{
+      --bg:#f4f6fb;
+      --card:#ffffff;
+      --accent:#0b63ff;
+      --muted:#6b7280;
+      --radius:14px;
+      --shadow: 0 8px 30px rgba(15,23,42,0.08);
+      --maxw:480px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      color:#0f172a;
+    }
+
+    /* Card */
+    .card{
+      width:100%;
+      max-width:var(--maxw);
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+      box-sizing:border-box;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:18px;
+    }
+    .logo{
+      width:64px;
+      height:64px;
+      border-radius:10px;
+      background:linear-gradient(135deg,#fff,#f0f4ff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      flex-shrink:0;
+      box-shadow: 0 4px 12px rgba(11,99,255,0.08) inset;
+    }
+    .logo img{width:100%;height:100%;object-fit:contain;display:block}
+    .brand h1{
+      font-size:18px;
+      margin:0;
+      line-height:1.05;
+    }
+    .brand p{margin:0;font-size:13px;color:var(--muted)}
+
+    form{margin-top:6px}
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    .field{
+      margin-bottom:14px;
+    }
+    input[type="text"],
+    input[type="password"]{
+      width:100%;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid #e6e9f2;
+      box-sizing:border-box;
+      font-size:15px;
+      outline:none;
+      transition:box-shadow .15s, border-color .15s;
+      background:#fff;
+    }
+    input:focus{
+      border-color: rgba(11,99,255,0.85);
+      box-shadow:0 6px 18px rgba(11,99,255,0.08);
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    button.primary{
+      background:var(--accent);
+      color:#fff;
+      padding:10px 16px;
+      border-radius:10px;
+      border:0;
+      font-weight:600;
+      cursor:pointer;
+      min-width:120px;
+      box-shadow: 0 8px 20px rgba(11,99,255,0.15);
+    }
+    button.secondary{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid #eef2ff;
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+    }
+
+    .helper{
+      font-size:13px;color:var(--muted);margin-top:12px;text-align:center;
+    }
+
+    .error{
+      color:#b91c1c;font-size:13px;margin-top:8px;
+    }
+
+    /* small screens */
+    @media (max-width:420px){
+      .brand h1{font-size:16px}
+      .logo{width:56px;height:56px}
+    }
+
+    /* success overlay (simple) */
+    .success{
+      display:none;
+      margin-top:14px;
+      padding:12px;
+      background:#ecfdf5;
+      color:#065f46;
+      border-radius:10px;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="login-heading">
+    <header class="brand">
+      <div class="logo" aria-hidden="true">
+        <!-- Place your target logo at assets/logo.png -->
+        <!-- If logo missing, the fallback text below will show in plain text -->
+        <img src="assets/logo.png" alt="Target Logo" onerror="this.style.display='none'">
+        <span id="logo-fallback" style="font-weight:700;display:none;font-size:18px;">TARGET</span>
+      </div>
+      <div>
+        <h1 id="login-heading">Sign in to My Target</h1>
+        <p>Login page — GitHub Pages demo</p>
+      </div>
+    </header>
+
+    <!-- The form does not actually submit to a server.
+         It performs client-side validation for the assignment/demo.
+         If you want to integrate server auth later, change the form action. -->
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="username">Username or email</label>
+        <input id="username" name="username" type="text" autocomplete="username" required aria-required="true" placeholder="your.email@example.com">
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required aria-required="true" placeholder="Enter your password">
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="primary" aria-label="Sign in">Sign in</button>
+        <button type="button" class="secondary" id="demoFill">Demo Fill</button>
+      </div>
+
+      <div id="error" class="error" role="alert" aria-live="assertive"></div>
+      <div id="success" class="success" role="status" aria-live="polite">Login successful — this is a demo only.</div>
+
+      <p class="helper">Created for assignment — no real authentication is done.</p>
+    </form>
+  </main>
+
+  <script>
+    // show fallback logo text if image not found
+    (function(){
+      var img = document.querySelector('.logo i
